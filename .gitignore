@@ -1,0 +1,35 @@
+
+# Node.js dependencies
+**/node_modules/
+**/npm-debug.log
+**/yarn-error.log
+**/package-lock.json
+
+# VSCode settings
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Environment / parameter files
+deployment-params
+.env
+*.env
+*.local
+
+# Compiled Bicep files
+**/*.json
+
+# App artifacts
+**/app.zip
+
+# Shell history / logs
+*.log
+*.bak
+*.swp
+
+# OS-specific
+ehthumbs.db
+Icon?
+Desktop.ini
