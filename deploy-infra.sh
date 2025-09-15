@@ -12,7 +12,7 @@ cat ${DEPLOYMENT_PARAMS_CONFIG}
 echo
 
 echo "Creating resource group $RG in $LOCATION..."
-az group create -n "$RG" -l "$LOCATION" >/dev/null
+#az group create -n "$RG" -l "$LOCATION" >/dev/null
 
 
 echo "Deploying infra (Linux App Service + SQL)..."

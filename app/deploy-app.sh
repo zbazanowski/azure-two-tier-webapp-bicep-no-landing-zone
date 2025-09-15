@@ -2,8 +2,11 @@
 # 01-without-lz/app/deploy-app.sh
 # Builds and zip-deploys the Node app to the Linux Web App.
 set -euo pipefail
-RG="${1:-contoso-dev-rg}"
-APP="${2:-contoso-dev-web}"
+
+export DEPLOYMENT_PARAMS_CONFIG="../deployment-params"
+source ${DEPLOYMENT_PARAMS_CONFIG}
+
+APP="${webName}"
 
 pushd "$(dirname "$0")" >/dev/null
 npm install --omit=dev
