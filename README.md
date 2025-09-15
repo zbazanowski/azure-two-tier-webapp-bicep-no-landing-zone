@@ -38,14 +38,14 @@ Infrastructure Scope: Resource Group
 
 ## 🚀 Deployment Steps
 
-### 1. Clone the Repository
+### 1. 🧬 Clone the Repository
 
 ```bash
 git clone https://github.com/your-org/azure-two-tier-webapp-bicep-no-landing-zone.git
 cd azure-two-tier-webapp-bicep-no-landing-zone/01-without-lz
 ```
 
-### 2. Set Parameters
+### 2. 🛠️ Set Parameters
 
 Customize and export deployment parameters:
 
@@ -62,7 +62,7 @@ This sets:
 - Client IP for SQL firewall
 - Deployment name
 
-### 3. Deploy Infrastructure
+### 3.  🏗️ Provision Infrastructure
 
 ```bash
 ./deploy-infra.sh
@@ -71,7 +71,42 @@ This sets:
 This will:
 - Create the resource group
 - Deploy the App Service Plan, Web App, SQL Server, and Database
-- Output key deployment information (e.g., FQDNs, resource names)
+- Output key deployment information (e.g., Web App URL, SQL FQDNs, resource names)
+
+### 4. 🚀 Deploy the Node.js App
+
+```bash
+cd app
+./deploy-app.sh <resource-group-name> <web-app-name>
+```
+
+Example:
+```bash
+cd app
+./deploy-app.sh contoso-dev-rg contoso-dev-web
+```
+
+This script will:
+- Run npm install --omit=dev
+- Package the app into app.zip
+- Deploy it to the Web App using az webapp deploy --type zip
+- Open the app in your browser
+
+### 5. 🔑 Set the DB connection string in the Web App
+
+Use the respective command in:
+```bash
+./sanity-check.sh
+```
+
+### 6. 🔥 Create a firewall rule for the SQL server
+
+Create a firewall rule for connections from any Azure service or asset to the SQL server.
+
+Use the respective command in:
+```bash
+./sanity-check.sh
+```
 
 ---
 
@@ -136,7 +171,6 @@ The purpose is to show what a **barebones, ungoverned deployment** looks like �
 
 ## 🔜 Next Steps (Optional)
 
-- Deploy the app using `app/deploy-app.sh`
 - Extend this baseline into `02-with-lz` using:
   - Private endpoints
   - Key Vault references

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-source ../utils/util-functions.sh
+source utils/util-functions.sh
 
 
 # load parameters
@@ -47,6 +47,20 @@ az sql server show --name "${sqlServerName}" --resource-group "${RG}"
 
 # SQL firewall rules
 az sql server firewall-rule list  --server "${sqlServerName}" --resource-group "${RG}"
+
+# Create a firewall rule for connections from IP addresses allocated to any Azure service or asset
+az sql server firewall-rule create \
+  --resource-group "${RG}" \
+  --server "${sqlServerName}" \
+  --name AllowAzureServices \
+  --start-ip-address 0.0.0.0 \
+  --end-ip-address 0.0.0.0
+
+# Delete the sql server firewall rule named AllowAzureServices
+az sql server firewall-rule delete \
+  --resource-group "${RG}" \
+  --server "${sqlServerName}" \
+  --name AllowAzureServices
 
 # SQL DB check
 az sql db show --name "${sqlDbName}" --server "${sqlServerName}" --resource-group "${RG}"

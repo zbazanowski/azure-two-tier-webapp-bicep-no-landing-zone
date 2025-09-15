@@ -60,7 +60,7 @@ echo $output
 # create environment variables
 eval $output
 
-source ../utils/util-functions.sh
+source utils/util-functions.sh
 save-variables sqlServerFqdn webUrl aspName webName sqlServerName sqlDbName sqlAdminLogin
 
 # create db connection string

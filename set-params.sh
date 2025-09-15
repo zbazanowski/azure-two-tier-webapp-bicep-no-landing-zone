@@ -22,7 +22,7 @@ PY
 
 # save additional parameter
 export DEPLOYMENT_PARAMS_CONFIG="deployment-params"
-source ../utils/util-functions.sh
+source utils/util-functions.sh
 
 save-variables \
 PREFIX \
