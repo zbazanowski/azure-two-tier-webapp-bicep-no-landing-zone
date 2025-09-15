@@ -23,16 +23,22 @@ It serves as a baseline to contrast with more secure, governed deployments using
 ## 📐 Architecture Overview
 
 ```text
-+-------------------+      Public Access     +-----------------------+
-|                   |  ------------------->  |                       |
-|   Linux Web App   |                        | Azure SQL Database    |
-| (Node.js backend) | <-------------------   |  (Basic tier, public) |
-|                   |     SQL Connection     |                       |
-+-------------------+                        +-----------------------+
+                                   DB Connection String
++------------------------+         to inject post-deploy        +-----------------------+
+|                        |  --------------------------------->  |                       |
+|   Linux Web App        |                                      |  Azure SQL Database   |
+| (Node.js backend)      |                                      | (Basic tier, public)  |
+|                        |  <-------------------------------->  |                       |
+|                        |   SQL traffic over public internet   +-----------------------+
+|                        |        ✅ SQL Firewall Rule:
++------------------------+           WebApp Outbound IP allowed                                     
 
 Deployment Type: Bicep
 Infrastructure Scope: Resource Group
+
+🔐 SQL Connection String injected manually post-deploy
 ```
+
 
 ---
 
@@ -98,6 +104,15 @@ Use the respective command in:
 ```bash
 ./sanity-check.sh
 ```
+or inject the connection string manually:
+```bash
+az webapp config appsettings set \
+  --name "${webName}" \
+  --resource-group "${RG}" \
+  --settings \
+    DefaultConnection="${SQL_CONNECTION_STRING}"
+```
+
 
 ### 6. 🔥 Create a firewall rule for the SQL server
 
@@ -107,6 +122,16 @@ Use the respective command in:
 ```bash
 ./sanity-check.sh
 ```
+or create the rule manually:
+```bash
+az sql server firewall-rule create \
+  --resource-group "${RG}" \
+  --server "${sqlServerName}" \
+  --name AllowAzureServices \
+  --start-ip-address 0.0.0.0 \
+  --end-ip-address 0.0.0.0
+```
+
 
 ---
 
