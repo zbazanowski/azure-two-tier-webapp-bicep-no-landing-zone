@@ -3,9 +3,10 @@
 # Creates RG and deploys the Linux-based web + SQL infra.
 set -euo pipefail
 
+
 # load parameters
-export DEPLOYMENT_PARAMS_CONFIG="deployment-params"
-source ${DEPLOYMENT_PARAMS_CONFIG}
+export DEPLOYMENT_PARAMS_CONFIG="${ENV_PARAMS}"
+#source ${DEPLOYMENT_PARAMS_CONFIG}
 
 # print the parameters
 cat ${DEPLOYMENT_PARAMS_CONFIG}
@@ -60,7 +61,7 @@ echo $output
 # create environment variables
 eval $output
 
-source utils/util-functions.sh
+source "${UTILS}/util-functions.sh"
 save-variables sqlServerFqdn webUrl aspName webName sqlServerName sqlDbName sqlAdminLogin
 
 # create db connection string

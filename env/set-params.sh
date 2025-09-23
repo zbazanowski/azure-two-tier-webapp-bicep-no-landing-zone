@@ -2,6 +2,7 @@
 
 set -euo pipefail
 
+
 PREFIX="${1:-contoso}"
 ENV="${2:-dev}"
 LOCATION="${3:-westeurope}"
@@ -20,9 +21,11 @@ print(''.join(random.choice(chars) for _ in range(40)))
 PY
 )"
 
+ENV_PARAMS="$(pwd)/${ENV}.env"
+
 # save additional parameter
-export DEPLOYMENT_PARAMS_CONFIG="deployment-params"
-source utils/util-functions.sh
+export DEPLOYMENT_PARAMS_CONFIG="${ENV_PARAMS}"
+source "${UTILS}/util-functions.sh"
 
 save-variables \
 PREFIX \
@@ -32,4 +35,5 @@ RG \
 APPSKU \
 CLIENT_IP \
 DEPLOYMENT_NAME \
-sqlPwd
+sqlPwd \
+ENV_PARAMS

@@ -19,7 +19,10 @@ deployment-params
 *.local
 
 # Compiled Bicep files
-**/*.json
+# **/*.json
+
+src/app/package-lock.json
+
 
 # App artifacts
 **/app.zip

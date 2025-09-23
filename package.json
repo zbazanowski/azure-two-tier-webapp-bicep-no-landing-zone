@@ -1,0 +1,16 @@
+{
+  "name": "azure-lz-demo-app",
+  "version": "1.0.0",
+  "description": "Minimal Node.js app for Azure App Service + Azure SQL demo",
+  "main": "src/app/server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mssql": "^10.0.2"
+  }
+}

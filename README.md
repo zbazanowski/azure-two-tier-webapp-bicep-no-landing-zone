@@ -1,4 +1,3 @@
-
 # azure-two-tier-webapp-bicep-no-landing-zone
 
 This project demonstrates a **minimal two-tier application architecture** on Azure, using **Bicep** to deploy a **Linux Web App (Node.js)** and an **Azure SQL Database**, **without Landing Zone guardrails**.
@@ -56,7 +55,7 @@ cd azure-two-tier-webapp-bicep-no-landing-zone/01-without-lz
 Customize and export deployment parameters:
 
 ```bash
-./set-params.sh contoso dev westeurope "" "" <your-public-ip> without-lz
+./infra/set-params.sh contoso dev westeurope "" "" <your-public-ip> without-lz
 ```
 
 This sets:
@@ -71,7 +70,7 @@ This sets:
 ### 3.  🏗️ Provision Infrastructure
 
 ```bash
-./deploy-infra.sh
+./infra/deploy-infra.sh
 ```
 
 This will:
@@ -82,13 +81,13 @@ This will:
 ### 4. 🚀 Deploy the Node.js App
 
 ```bash
-cd app
+cd src/app
 ./deploy-app.sh <resource-group-name> <web-app-name>
 ```
 
 Example:
 ```bash
-cd app
+cd src/app
 ./deploy-app.sh contoso-dev-rg contoso-dev-web
 ```
 
@@ -102,7 +101,7 @@ This script will:
 
 Use the respective command in:
 ```bash
-./sanity-check.sh
+./infra/sanity-check.sh
 ```
 or inject the connection string manually:
 ```bash
@@ -120,7 +119,7 @@ Create a firewall rule for connections from any Azure service or asset to the SQ
 
 Use the respective command in:
 ```bash
-./sanity-check.sh
+./infra/sanity-check.sh
 ```
 or create the rule manually:
 ```bash
@@ -140,7 +139,7 @@ az sql server firewall-rule create \
 After deployment, you can verify the environment with:
 
 ```bash
-./sanity-check.sh
+./infra/sanity-check.sh
 ```
 
 This runs a series of checks:
@@ -178,13 +177,12 @@ The purpose is to show what a **barebones, ungoverned deployment** looks like �
 ## 📂 Project Structure
 
 ```text
-01-without-lz/
+infra/
 ├── main.bicep             # Bicep template for all infra
 ├── deploy-infra.sh        # Script to deploy infra
 ├── set-params.sh          # Script to define deployment parameters
 ├── sanity-check.sh        # Script to validate deployment
-├── deployment-params      # Parameter source loaded by scripts
-├── deployed-template.json # Deployment result (optional)
+src/
 ├── app/
 │   ├── server.js          # Minimal Node.js app
 │   ├── package.json
